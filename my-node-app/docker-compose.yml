@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: restaraunt
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8080"
+    networks:
+      - my_network
+
+  sternguard:
+    build: sternguard/
+    container_name: sternguard
+    command: sh ./docker-entrypoint.sh
+    restart: always
+    ports:
+      - "9000:9000"
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: restaraunt
+      PORT: 9000
+    networks:
+      - my_network
+
+networks:
+  my_network:
