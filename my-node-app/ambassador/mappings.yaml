@@ -12,7 +12,7 @@ metadata:
   name: sternguard-mapping
 spec:
   prefix: /sternguard/
-  service: localhost:9000
+  service: sternguard:9000
 
 ---
 apiVersion: getambassador.io/v2
@@ -21,4 +21,4 @@ metadata:
   name: servicer-mapping
 spec:
   prefix: /servicer/
-  service: localhost:9001
+  service: servicer:9001
