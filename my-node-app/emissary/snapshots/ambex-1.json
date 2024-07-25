@@ -1,0 +1,47 @@
+{
+  "version": "v0",
+  "v2": {
+    "endpoints": {
+      "Version": "v0",
+      "Items": {}
+    },
+    "clusters": {
+      "Version": "v0",
+      "Items": {}
+    },
+    "routes": {
+      "Version": "v0",
+      "Items": {}
+    },
+    "listeners": {
+      "Version": "v0",
+      "Items": {}
+    },
+    "runtimes": {
+      "Version": "v0",
+      "Items": {}
+    }
+  },
+  "v3": {
+    "endpoints": {
+      "Version": "v0",
+      "Items": {}
+    },
+    "clusters": {
+      "Version": "v0",
+      "Items": {}
+    },
+    "routes": {
+      "Version": "v0",
+      "Items": {}
+    },
+    "listeners": {
+      "Version": "v0",
+      "Items": {}
+    },
+    "runtimes": {
+      "Version": "v0",
+      "Items": {}
+    }
+  }
+}

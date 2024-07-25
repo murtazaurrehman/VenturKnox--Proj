@@ -1,0 +1,34 @@
+# ambassador.yaml
+apiVersion: getambassador.io/v2
+kind: Ambassador
+metadata:
+  name: ambassador
+spec:
+  service_port: 8083
+
+# adminer-mapping.yaml
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: adminer-mapping
+spec:
+  prefix: /adminer/
+  service: http://adminer:8081
+
+# sternguard-mapping.yaml
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: sternguard-mapping
+spec:
+  prefix: /sternguard/
+  service: http://sternguard:9000
+
+# servicer-mapping.yaml
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: servicer-mapping
+spec:
+  prefix: /servicer/
+  service: http://servicer:9001

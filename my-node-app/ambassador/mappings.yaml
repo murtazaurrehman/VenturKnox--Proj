@@ -1,0 +1,24 @@
+apiVersion: getambassador.io/v2
+kind: Module
+name: ambassador
+config:
+  diagnostics:
+    enabled: true
+
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: sternguard-mapping
+spec:
+  prefix: /sternguard/
+  service: localhost:9000
+
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: servicer-mapping
+spec:
+  prefix: /servicer/
+  service: localhost:9001

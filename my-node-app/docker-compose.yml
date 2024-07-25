@@ -14,15 +14,26 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
 
+  postgres2:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres2
+      POSTGRES_PASSWORD: anothersecretpassword
+      POSTGRES_DB: servicer
+    ports:
+      - "5433:5432"
+    networks:
+      - my_network
+
   adminer:
     image: adminer
     ports:
-      - "8081:8080"
+      - "8081:8080"  # Changed port mapping to avoid conflict
     networks:
       - my_network
 
   sternguard:
-    build: sternguard/
+    build: ./sternguard
     container_name: sternguard
     command: sh ./docker-entrypoint.sh
     restart: always
@@ -39,5 +50,34 @@ services:
     networks:
       - my_network
 
+  servicer:
+    build: ./servicer
+    container_name: servicer
+    command: sh ./docker-entrypoint.sh
+    restart: always
+    ports:
+      - "9001:9001"
+    depends_on:
+      - postgres2
+    environment:
+      POSTGRES_USER: postgres2
+      POSTGRES_PASSWORD: anothersecretpassword
+      POSTGRES_HOST: postgres2
+      POSTGRES_DB: servicer
+      PORT: 9001
+    networks:
+      - my_network
+      
+  ambassador:
+    image: datawire/ambassador:1.10.0
+    ports:
+      - 8080:8080
+    volumes:
+      - ./ambassador:/ambassador/ambassador-config
+    environment:
+      - AMBASSADOR_NO_KUBEWATCH=no_kubewatch  
+
+
 networks:
   my_network:
+    driver: bridge
