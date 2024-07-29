@@ -77,6 +77,12 @@ services:
     environment:
       - AMBASSADOR_NO_KUBEWATCH=no_kubewatch  
 
+  httpbin:
+    image: kennethreitz/httpbin
+    ports:
+      - "9002:80"
+    networks:
+      - my_network
 
 networks:
   my_network:
