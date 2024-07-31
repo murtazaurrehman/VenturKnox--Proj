@@ -4,12 +4,15 @@ var express = require('express');
 
 var bcrypt = require('bcryptjs');
 
+var jwt = require('jsonwebtoken');
+
 var User = require('../models/User');
 
-var router = express.Router(); // Login route
+var router = express.Router();
+var SECRET_KEY = 'yoursecretkey'; // Login route
 
 router.post('/login', function _callee(req, res) {
-  var _req$body, email, password, user, isPasswordValid;
+  var _req$body, email, password, user, isPasswordValid, token;
 
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -51,15 +54,24 @@ router.post('/login', function _callee(req, res) {
           }));
 
         case 12:
-          // If login is successful, send a success response
-          res.json({
-            message: 'Login successful'
+          console.log(user);
+          token = jwt.sign({
+            id: user.id,
+            token: user.access_token
+          }, SECRET_KEY, {
+            expiresIn: '1h'
           });
-          _context.next = 19;
+          res.json({
+            token: token
+          });
+          console.log(token); // If login is successful, send a success response
+          // res.json({ message: 'Login successful' });
+
+          _context.next = 22;
           break;
 
-        case 15:
-          _context.prev = 15;
+        case 18:
+          _context.prev = 18;
           _context.t0 = _context["catch"](1);
           console.error(_context.t0); // Log the error for debugging
 
@@ -67,12 +79,12 @@ router.post('/login', function _callee(req, res) {
             message: 'Internal server error'
           });
 
-        case 19:
+        case 22:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[1, 15]]);
+  }, null, null, [[1, 18]]);
 });
 router.post('/signup', function _callee2(req, res) {
   var _req$body2, email, password, name, existingUser, hashedPassword, newUser;

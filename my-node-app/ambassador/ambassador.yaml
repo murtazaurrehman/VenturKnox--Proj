@@ -1,37 +1,14 @@
-apiVersion: ambassador/v1
+apiVersion: getambassador.io/v2
 kind: Module
 name: ambassador
 config:
   diagnostics:
     enabled: true
   use_ambassador_namespace: false
-
-# ---
-# apiVersion: getambassador.io/v3alpha1
-# kind: Listener
-# metadata:
-#   name: ambassador-listener
-# spec:
-#   port: 8080
-#   protocol: HTTP
-
----
-apiVersion: ambassador/v1
-kind: Mapping
-name: servicer-mapping
-prefix: /servicer
-service: servicer:9001
-
----
-apiVersion: ambassador/v1
-kind: Mapping
-name: httpbin-mapping
-prefix: /httpbin/
-service: httpbin:80
-
----
-apiVersion: ambassador/v1
-kind: Mapping
-name: sternguard-mapping
-prefix: /sternguard/
-service: sternguard:9000
+  gzip:
+    enabled: true
+  cors:
+    origins: "*"
+    methods: "*"
+    headers: "*"
+    expose_headers: "*"

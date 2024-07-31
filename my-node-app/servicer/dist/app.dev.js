@@ -30,13 +30,13 @@ app.use(cookieParser());
 app.use(express["static"](path.join(__dirname, 'public'))); // Serve static files
 
 app.use('/', indexRouter);
-app.use('/servicer', function (req, res) {
+app.use('/servicer/', function (req, res) {
   res.send('Servicer route');
 });
-app.use('/menu', menuRouter);
-app.use('/order', orderRouter); // Add this line
+app.use('/servicer/menu', menuRouter);
+app.use('/servicer/order', orderRouter); // Add this line
 
-app.use('/user', usersGetter);
+app.use('/servicer/user', usersGetter);
 var PORT = process.env.PORT;
 app.listen(PORT, function () {
   console.log('Server Started on ' + PORT);

@@ -1,9 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const router = express.Router();
-
+const SECRET_KEY = 'yoursecretkey';
 // Login route
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -20,9 +21,15 @@ router.post('/login', async (req, res) => {
     if (!isPasswordValid) {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
+    console.log(user);
+    const token = jwt.sign({ id: user.id, token: user.access_token }, SECRET_KEY, {
+      expiresIn: '1h'
+    });
 
+    res.json({ token });
+    console.log(token);
     // If login is successful, send a success response
-    res.json({ message: 'Login successful' });
+    // res.json({ message: 'Login successful' });
   } catch (error) {
     console.error(error); // Log the error for debugging
     res.status(500).json({ message: 'Internal server error' });

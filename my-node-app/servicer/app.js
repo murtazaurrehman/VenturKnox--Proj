@@ -20,13 +20,17 @@ app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
 
 
 app.use('/', indexRouter);
-app.use('/servicer', (req, res) => {
+app.use('/servicer/', (req, res) => {
     res.send('Servicer route');
   });
   
-app.use('/menu', menuRouter);
-app.use('/order', orderRouter); // Add this line
-app.use('/user',usersGetter);
+app.use('/servicer/menu', menuRouter);
+app.use('/servicer/order', orderRouter); // Add this line
+app.use('/servicer/user',usersGetter);
+
+
+
+
 const PORT = process.env.PORT
 
 app.listen(PORT, () => {

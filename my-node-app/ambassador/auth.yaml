@@ -1,0 +1,25 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+name: servicer-mapping
+prefix: /servicer/
+rewrite: ''
+service: http://servicer:9001
+by_pass_auth: false
+
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+name: httpbin-mapping
+prefix: /httpbin/
+rewrite: ''
+service: httpbin:80
+
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+name: sternguard-mapping
+prefix: /sternguard/
+rewrite: ''
+service: http://sternguard:9000
+by_pass_auth: true  # Sternguard should bypass auth to validate tokens

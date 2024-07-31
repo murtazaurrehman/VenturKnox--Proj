@@ -1,0 +1,9 @@
+apiVersion: getambassador.io/v2
+kind: AuthService
+metadata:
+  name: authentication
+spec:
+  auth_service: "http://sternguard:9000/validate-token"
+  path_prefix: "/"
+  allowed_request_headers:
+    - "Authorization"
