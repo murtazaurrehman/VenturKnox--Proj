@@ -1,43 +1,20 @@
-const { Model } = require('objection');
+const Permission = require('../models/Permission'); // Adjust the path as necessary
 
-class Role extends Model {
-  static get tableName() {
-    return 'roles';
-  }
+exports.seed = async function(knex) {
+  // Clear existing data
+  await Permission.query().del();
 
-  static get relationMappings() {
-    const User = require('./User');
-    const Permission = require('./Permission');
-    const RoleAssignment = require('./RoleAssignment');
-    const PermissionAssignment = require('./PermissionAssignment');
-
-    return {
-      users: {
-        relation: Model.ManyToManyRelation,
-        modelClass: User,
-        join: {
-          from: 'roles.id',
-          through: {
-            from: 'role_assignment.role_id',
-            to: 'role_assignment.user_id'
-          },
-          to: 'users.id'
-        }
-      },
-      permissions: {
-        relation: Model.ManyToManyRelation,
-        modelClass: Permission,
-        join: {
-          from: 'roles.id',
-          through: {
-            from: 'permission_assignment.role_id',
-            to: 'permission_assignment.permission_id'
-          },
-          to: 'permissions.id'
-        }
-      }
-    };
-  }
-}
-
-module.exports = Role;
+  // Insert new data
+  await Permission.query().insert([
+    { id: 1, name: 'View Orders', objects_id: 1, methods_id: 1 },
+    { id: 2, name: 'Create Orders', objects_id: 1, methods_id: 2 },
+    { id: 3, name: 'Update Orders', objects_id: 1, methods_id: 3 },
+    { id: 4, name: 'Delete Orders', objects_id: 1, methods_id: 4 },
+    { id: 5, name: 'View Users', objects_id: 2, methods_id: 1 },
+    { id: 6, name: 'Create Users', objects_id: 2, methods_id: 2 },
+    { id: 7, name: 'Update Users', objects_id: 2, methods_id: 3 },
+    { id: 8, name: 'Delete Users', objects_id: 2, methods_id: 4 },
+    { id: 9, name: 'View Menu', objects_id: 3, methods_id: 1 },
+    // Add more permissions as needed
+  ]);
+};

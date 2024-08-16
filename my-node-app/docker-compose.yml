@@ -12,14 +12,14 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
 
-  postgres2:
-    image: postgres
-    environment:
-      POSTGRES_USER: postgres2
-      POSTGRES_PASSWORD: anothersecretpassword
-      POSTGRES_DB: servicer
-    ports:
-      - "5433:5432"
+  # postgres2:
+  #   image: postgres
+  #   environment:
+  #     POSTGRES_USER: postgres2
+  #     POSTGRES_PASSWORD: anothersecretpassword
+  #     POSTGRES_DB: servicer
+  #   ports:
+  #     - "5433:5432"
 
   adminer:
     image: adminer
@@ -50,14 +50,14 @@ services:
     ports:
       - "9001:9001"
     depends_on:
-      - postgres2
+      - postgres
     environment:
       POSTGRES_USER: postgres2
       POSTGRES_PASSWORD: anothersecretpassword
       POSTGRES_HOST: postgres2
       POSTGRES_DB: servicer
       PORT: 9001
-      
+
   ambassador:
     image: datawire/ambassador:1.10.0
     ports:
@@ -67,8 +67,5 @@ services:
     environment:
       - AMBASSADOR_NO_KUBEWATCH=no_kubewatch  
 
-  httpbin:
-    image: kennethreitz/httpbin
-    ports:
-      - "9002:80"
-
+volumes:
+  postgres_data:

@@ -5,9 +5,9 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: 'postgres2',
-      user: 'postgres2',
-      password: 'anothersecretpassword',
+      host: 'postgres',
+      user: 'postgres',
+      password: 'mysecretpassword',
       database: 'servicer',
       port: 5432 // Port inside the Docker network
 

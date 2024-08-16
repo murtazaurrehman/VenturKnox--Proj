@@ -12,3 +12,15 @@ config:
     methods: "*"
     headers: "*"
     expose_headers: "*"
+
+---
+
+apiVersion: getambassador.io/v2
+kind: AuthService
+name: authentication
+auth_service: sternguard:9000
+path_prefix: "/validate-token"
+allowed_request_headers:
+  - "Origin"
+allowed_authorization_headers:
+  - "user"
